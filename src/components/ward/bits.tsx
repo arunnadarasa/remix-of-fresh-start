@@ -38,7 +38,13 @@ export function NewsPill({ score }: { score: number }) {
   );
 }
 
-export function DoctorChip({ doctor, isMe }: { doctor?: Doctor; isMe?: boolean }) {
+export function DoctorChip({
+  doctor,
+  isMe,
+}: {
+  doctor?: Doctor | undefined;
+  isMe?: boolean | undefined;
+}) {
   if (!doctor)
     return <span className="text-xs text-muted-foreground">—</span>;
   return (
@@ -203,7 +209,13 @@ function NewsMini({ score }: { score: number }) {
   );
 }
 
-export function DoneDrawer({ jobs, showPatient }: { jobs: Job[]; showPatient?: boolean }) {
+export function DoneDrawer({
+  jobs,
+  showPatient,
+}: {
+  jobs: Job[];
+  showPatient?: boolean | undefined;
+}) {
   const [open, setOpen] = useState(false);
   if (jobs.length === 0) return null;
   return (
