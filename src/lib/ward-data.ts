@@ -51,12 +51,12 @@ export type Job = {
   patientId: string;
   category: JobCategory;
   title: string;
-  detail?: string;
+  detail?: string | undefined;
   status: JobStatus;
   /** e.g. "After 14:00" / "Before ward round" */
-  timing?: string;
+  timing?: string | undefined;
   /** true when the job auto-spawned a follow-up chase job */
-  spawnedChase?: boolean;
+  spawnedChase?: boolean | undefined;
 };
 
 export type Doctor = {

@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import { Stethoscope, Check } from "lucide-react";
 
-import { AREAS, buildWard, initialsOf } from "@/lib/ward-data";
+import { AREAS, initialsOf } from "@/lib/ward-data";
 import { useWard } from "@/lib/ward-store";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -186,5 +186,3 @@ export function SetupScreen() {
     </main>
   );
 }
-
-export const _unused = buildWard;
