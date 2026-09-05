@@ -32,7 +32,10 @@ type Ctx = {
   }) => void;
   endShift: () => void;
   setJobStatus: (jobId: string, status: JobStatus) => void;
-  updateJob: (jobId: string, patch: Partial<Pick<Job, "timing" | "detail" | "category">>) => void;
+  updateJob: (
+    jobId: string,
+    patch: { timing?: string | undefined; detail?: string | undefined; category?: JobCategory },
+  ) => void;
   addJob: (input: {
     patientId: string;
     category: JobCategory;
