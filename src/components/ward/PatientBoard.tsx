@@ -5,6 +5,8 @@ import { AREAS, type Job, type Patient } from "@/lib/ward-data";
 import { useWard } from "@/lib/ward-store";
 import { cn } from "@/lib/utils";
 import { DoctorChip, DoneDrawer, JobRow, NewsPill, sortJobs } from "./bits";
+import { AddJobDialog } from "./AddJobDialog";
+
 
 export function PatientBoard({ patients }: { patients: Patient[] }) {
   const { jobs } = useWard();
