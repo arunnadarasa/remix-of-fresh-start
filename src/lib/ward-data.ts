@@ -185,7 +185,7 @@ export function buildWard() {
       const name = `${FIRST[(ai * 12 + i) % FIRST.length]} ${
         LAST[Math.floor(rand() * LAST.length)]
       }`;
-      const news = [0, 0, 1, 1, 2, 2, 3, 4, 5, 7][Math.floor(rand() * 10)];
+      const news = [0, 0, 1, 1, 2, 2, 3, 4, 5, 7][Math.floor(rand() * 10)] ?? 0;
       patients.push({
         id,
         name,
@@ -197,7 +197,7 @@ export function buildWard() {
         area,
         bed: `${area.replace("Bay ", "")}${i + 1}`,
         news,
-        summary: SUMMARIES[Math.floor(rand() * SUMMARIES.length)],
+        summary: SUMMARIES[Math.floor(rand() * SUMMARIES.length)] ?? "Medical inpatient",
         doctorId: null,
       });
 
@@ -207,19 +207,19 @@ export function buildWard() {
         let k = Math.floor(rand() * JOB_SEEDS.length);
         while (used.has(k)) k = (k + 1) % JOB_SEEDS.length;
         used.add(k);
-        const seed = JOB_SEEDS[k];
+        const seed = JOB_SEEDS[k]!;
         jobs.push({
           id: `${id}-j${j}`,
           patientId: id,
           category: seed.c,
           title: seed.t,
-          detail: seed.d,
           status: seed.s,
-          timing: seed.time,
+          ...(seed.d ? { detail: seed.d } : {}),
+          ...(seed.time ? { timing: seed.time } : {}),
         });
       }
       if (rand() > 0.6) {
-        const seed = DONE_SEEDS[Math.floor(rand() * DONE_SEEDS.length)];
+        const seed = DONE_SEEDS[Math.floor(rand() * DONE_SEEDS.length)]!;
         jobs.push({
           id: `${id}-jd`,
           patientId: id,
@@ -238,6 +238,7 @@ export function buildWard() {
           status: "todo",
         });
       }
+
     }
   });
 
