@@ -5,6 +5,8 @@ import { AREAS, type Job, type Patient } from "@/lib/ward-data";
 import { useWard } from "@/lib/ward-store";
 import { cn } from "@/lib/utils";
 import { DoctorChip, DoneDrawer, JobRow, NewsPill, sortJobs } from "./bits";
+import { AddJobDialog } from "./AddJobDialog";
+
 
 export function PatientBoard({ patients }: { patients: Patient[] }) {
   const { jobs } = useWard();
@@ -98,7 +100,11 @@ function PatientRow({ patient, jobs, first }: { patient: Patient; jobs: Job[]; f
             <span className="text-muted-foreground">clear</span>
           )}
         </span>
+        <span onClick={(e) => e.stopPropagation()} className="shrink-0">
+          <AddJobDialog defaultPatientId={patient.id} compact />
+        </span>
         <ChevronDown
+
           className={cn(
             "h-4 w-4 shrink-0 text-muted-foreground transition-transform",
             open && "rotate-180",

@@ -25,10 +25,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function AddJobDialog() {
+export function AddJobDialog({
+  defaultPatientId,
+  compact,
+}: {
+  defaultPatientId?: string;
+  compact?: boolean;
+}) {
   const { patients, addJob } = useWard();
   const [open, setOpen] = useState(false);
-  const [patientId, setPatientId] = useState("");
+  const [patientId, setPatientId] = useState(defaultPatientId ?? "");
   const [category, setCategory] = useState<JobCategory>("bedside");
   const [status, setStatus] = useState<JobStatus>("todo");
   const [title, setTitle] = useState("");
@@ -54,10 +60,17 @@ export function AddJobDialog() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm">
-          <Plus className="h-4 w-4" /> Add job
-        </Button>
+        {compact ? (
+          <Button size="icon" variant="ghost" className="h-7 w-7" title="Add job">
+            <Plus className="h-4 w-4" />
+          </Button>
+        ) : (
+          <Button size="sm">
+            <Plus className="h-4 w-4" /> Add job
+          </Button>
+        )}
       </DialogTrigger>
+
       <DialogContent className="max-w-lg">
         <DialogHeader>
           <DialogTitle>Add a job</DialogTitle>
