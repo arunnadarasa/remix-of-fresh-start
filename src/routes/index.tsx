@@ -47,16 +47,32 @@ function Shell() {
   const [scope, setScope] = useState<"mine" | "ward">("mine");
   const [view, setView] = useState<"patients" | "jobs">("patients");
   const [filter, setFilter] = useState<JobCategory | "all">("all");
+  const [search, setSearch] = useState("");
+  const [newsFilter, setNewsFilter] = useState<"all" | "high" | "raised">("all");
 
-  const visible = useMemo(
-    () =>
+  const visible = useMemo(() => {
+    const base =
       scope === "mine" && session
         ? patients.filter((p) => session.myPatientIds.includes(p.id))
-        : patients,
-    [scope, session, patients],
-  );
+        : patients;
+    const q = search.trim().toLowerCase();
+    return base.filter((p) => {
+      const matchesSearch =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        p.bed.toLowerCase().includes(q) ||
+        p.nhs.replace(/\s/g, "").includes(q.replace(/\s/g, ""));
+      const tone = newsTone(p.news);
+      const matchesNews =
+        newsFilter === "all" ||
+        (newsFilter === "high" && tone === "high") ||
+        (newsFilter === "raised" && (tone === "high" || tone === "med"));
+      return matchesSearch && matchesNews;
+    });
+  }, [scope, session, patients, search, newsFilter]);
 
   if (!session) return <SetupScreen />;
+
 
   return (
     <main className="min-h-screen bg-surface pb-16">
