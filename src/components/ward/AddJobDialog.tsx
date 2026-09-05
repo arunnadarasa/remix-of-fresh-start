@@ -25,15 +25,16 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function AddJobDialog() {
+export function AddJobDialog({ defaultPatientId }: { defaultPatientId?: string }) {
   const { patients, addJob } = useWard();
   const [open, setOpen] = useState(false);
-  const [patientId, setPatientId] = useState("");
+  const [patientId, setPatientId] = useState(defaultPatientId ?? "");
   const [category, setCategory] = useState<JobCategory>("bedside");
   const [status, setStatus] = useState<JobStatus>("todo");
   const [title, setTitle] = useState("");
   const [detail, setDetail] = useState("");
   const [timing, setTiming] = useState("");
+
 
   const submit = () => {
     if (!patientId || !title.trim()) return;
