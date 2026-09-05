@@ -100,7 +100,11 @@ function PatientRow({ patient, jobs, first }: { patient: Patient; jobs: Job[]; f
             <span className="text-muted-foreground">clear</span>
           )}
         </span>
+        <span onClick={(e) => e.stopPropagation()} className="shrink-0">
+          <AddJobDialog defaultPatientId={patient.id} compact />
+        </span>
         <ChevronDown
+
           className={cn(
             "h-4 w-4 shrink-0 text-muted-foreground transition-transform",
             open && "rotate-180",
