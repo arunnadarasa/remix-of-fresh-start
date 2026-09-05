@@ -1,16 +1,18 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { Activity, LayoutList, Rows3, LogOut } from "lucide-react";
+import { Activity, LayoutList, Rows3, LogOut, Search, AlertCircle } from "lucide-react";
 
-import { CATEGORY_META, CATEGORY_ORDER, type JobCategory } from "@/lib/ward-data";
+import { CATEGORY_META, CATEGORY_ORDER, newsTone, type JobCategory } from "@/lib/ward-data";
 import { WardProvider, useWard } from "@/lib/ward-store";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { SetupScreen } from "@/components/ward/SetupScreen";
 import { PatientBoard } from "@/components/ward/PatientBoard";
 import { JobsBoard } from "@/components/ward/JobsBoard";
 import { AddJobDialog } from "@/components/ward/AddJobDialog";
 import { HandoverDialog } from "@/components/ward/HandoverDialog";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
