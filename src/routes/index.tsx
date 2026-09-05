@@ -120,19 +120,44 @@ function Shell() {
           </div>
         </div>
 
-        {view === "jobs" && (
-          <div className="mx-auto flex max-w-7xl flex-wrap gap-1.5 px-4 pb-2">
-            <FilterChip active={filter === "all"} onClick={() => setFilter("all")}>
-              All jobs
-            </FilterChip>
-            {CATEGORY_ORDER.map((c) => (
-              <FilterChip key={c} active={filter === c} onClick={() => setFilter(c)}>
-                {CATEGORY_META[c].label}
-              </FilterChip>
-            ))}
+        <div className="mx-auto flex max-w-7xl flex-wrap items-center gap-2 px-4 pb-2">
+          <div className="relative">
+            <Search className="absolute left-2 top-1/2 h-3.5 w-3.5 -translate-y-1/2 text-muted-foreground" />
+            <Input
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Find bed, name or NHS"
+              className="h-8 w-44 pl-7 text-sm sm:w-56"
+            />
           </div>
-        )}
+          <FilterChip active={newsFilter === "all"} onClick={() => setNewsFilter("all")}>
+            All NEWS
+          </FilterChip>
+          <FilterChip active={newsFilter === "raised"} onClick={() => setNewsFilter("raised")}>
+            <AlertCircle className="mr-1 h-3 w-3" />
+            Raised
+          </FilterChip>
+          <FilterChip active={newsFilter === "high"} onClick={() => setNewsFilter("high")}>
+            <AlertCircle className="mr-1 h-3 w-3 text-news-high" />
+            High NEWS
+          </FilterChip>
+
+          {view === "jobs" && (
+            <>
+              <span className="mx-1 hidden h-4 w-px bg-border sm:inline" />
+              <FilterChip active={filter === "all"} onClick={() => setFilter("all")}>
+                All jobs
+              </FilterChip>
+              {CATEGORY_ORDER.map((c) => (
+                <FilterChip key={c} active={filter === c} onClick={() => setFilter(c)}>
+                  {CATEGORY_META[c].label}
+                </FilterChip>
+              ))}
+            </>
+          )}
+        </div>
       </header>
+
 
       <div className="mx-auto max-w-7xl px-4 py-5">
         {view === "patients" ? (
