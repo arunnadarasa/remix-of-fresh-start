@@ -50,16 +50,18 @@ export function DoctorChip({
   return (
     <HoverCard openDelay={80} closeDelay={40}>
       <HoverCardTrigger asChild>
-        <button
+        <span
+          role="img"
+          aria-label={`${doctor.name}, bleep ${doctor.bleep}`}
           className={cn(
-            "inline-flex h-7 w-7 items-center justify-center rounded-full text-[11px] font-semibold ring-1 transition-colors",
+            "inline-flex h-7 w-7 cursor-help items-center justify-center rounded-full text-[11px] font-semibold ring-1 transition-colors",
             isMe
               ? "bg-primary text-primary-foreground ring-primary"
               : "bg-secondary text-secondary-foreground ring-border hover:bg-accent",
           )}
         >
           {doctor.initials}
-        </button>
+        </span>
       </HoverCardTrigger>
       <HoverCardContent className="w-56 p-3" side="top">
         <p className="text-sm font-semibold">{doctor.name}</p>

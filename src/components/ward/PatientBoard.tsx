@@ -53,9 +53,17 @@ function PatientRow({ patient, jobs, first }: { patient: Patient; jobs: Job[]; f
 
   return (
     <div className={cn(!first && "border-t border-border")}>
-      <button
+      <div
+        role="button"
+        tabIndex={0}
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-accent/50"
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            setOpen((o) => !o);
+          }
+        }}
+        className="flex w-full cursor-pointer items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-accent/50"
       >
         <span className="w-10 shrink-0 rounded bg-foreground py-1 text-center font-mono text-xs font-bold text-background">
           {patient.bed}
@@ -96,7 +104,7 @@ function PatientRow({ patient, jobs, first }: { patient: Patient; jobs: Job[]; f
             open && "rotate-180",
           )}
         />
-      </button>
+      </div>
       {open && (
         <div className="border-t border-border bg-surface/60 px-2 py-2">
           {sortJobs([...todo, ...chase]).map((j) => (
